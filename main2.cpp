@@ -1,9 +1,12 @@
 #include <iostream>
 #include <vector>
+#include <typeinfo>
+
 
 
 
 using namespace std;
+
 
 class Card {
     protected:
@@ -52,32 +55,48 @@ class PurpleCard : public Card {
         int getPriority() {
             return priority;
         }
+        virtual void makeEffect() {
+            cout << "hi";
+        }
 };
 
 class Matarsag : public PurpleCard {
 
     public:
         using PurpleCard :: PurpleCard;
-        int makeEffect(class Player p);
+        void  makeEffect() override;
+};
+
+class ShirDokht : public PurpleCard {
+
+    public:
+        using PurpleCard :: PurpleCard;
+        void makeEffect() override {
+            cout << " yeeeeah ";
+        }
 
 
 };
 
+
+
 class Player {
-private:
+public:
     int age;
     string name;
     string color;
     int signs = 5;
     bool isPassed = false;
-    vector <int> yellowCards;
+    vector <Card> yellowCards;
+    vector <PurpleCard*> purpleCards;
 
 
 };
 
-int Matarsag :: makeEffect(class Player p) {
-    return 5;
+void  Matarsag :: makeEffect() {
+    cout << " nooo ";
 }
+
 
 class state {
 
@@ -90,8 +109,20 @@ private:
     bool warEnd = false;
 };
 
+//template <class T> class PurpleCard
 int main()
 {
 
+    Player p;
+    p.purpleCards.push_back(new Matarsag(8, "matarsag", 0));
+    p.purpleCards[0]->makeEffect();
     return 0;
 }
+
+    /*
+    vector <PurpleCard*> pc;
+    pc.push_back(new Matarsag(10,  "un", 5));
+    pc.push_back(new ShirDokht(8,  "unknown", 7));
+    pc[1] -> makeEffect();
+    */
+//second git version
